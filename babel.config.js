@@ -14,7 +14,7 @@ module.exports = {
     [
       'relay',
       {
-        schema: '../server/data/schema.json',
+        schema: './data/schema.json',
       },
     ],
     '@babel/plugin-proposal-object-rest-spread',

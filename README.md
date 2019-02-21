@@ -1,10 +1,25 @@
-## Web app
+## Relay Modern Typescript
 
-This example contains: 
-* `html-webpack-plugin`
-* `mini-css-extract-plugin`
-* `webpack-plugin-serve`
-* `webpack-nano`
-* `babel-loader`
-* `css-loader`
-* `file-loader/url-loader` (for images and fonts)
+Starter of Relay Modern with Typescript using Webpack on Web
+
+### Setup
+
+- Install dependencies
+```bash
+yarn install
+```
+
+- Run relay-compiler to generate GraphQL artifacts (static queries)
+```bash
+yarn relay
+```
+
+- Start web app
+```bash
+yarn start
+```
+
+Open web app at: 
+
+http://[::]:55555 (ipv6) or
+http://localhost:55555 (ipv4)

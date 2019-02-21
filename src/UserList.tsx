@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
 import { createQueryRendererModern } from './relay';
-import { UserList_query } from './__generated__/UserList_query.graphql';
 import { Flex } from 'rebass';
 import { alignItems, flexDirection, justifyContent, space } from 'styled-system';
 import styled from 'styled-components';
+
+import { UserList_query } from './__generated__/UserList_query.graphql';
 
 const Card = styled.a`
   border-radius: 2px;

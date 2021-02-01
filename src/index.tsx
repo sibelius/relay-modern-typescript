@@ -1,14 +1,12 @@
-import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
 
 const render = () => {
-  const root = document.createElement('div');
-  document.body.appendChild(root);
+  const rootEl = document.getElementById('root');
 
-  ReactDOM.render(<App />, root);
+  ReactDOM.render(<App />, rootEl);
 };
 
 render();

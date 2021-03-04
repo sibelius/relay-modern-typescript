@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { graphql, createFragmentContainer } from 'react-relay';
+import { graphql, createFragmentContainer, useLazyLoadQuery, useFragment } from 'react-relay';
 import { createQueryRendererModern } from './relay';
 import { Flex } from 'rebass';
 import { alignItems, flexDirection, justifyContent, space } from 'styled-system';
@@ -23,47 +23,48 @@ const Card = styled.a`
   ${justifyContent}
 `;
 
-type Props = {
-  query:  UserList_query
-}
-class UserList extends React.Component<Props> {
-  render() {
-    const { query } = this.props;
-    const { users } = query;
+const UserList = () => {
+  const response = useLazyLoadQuery<AppQuery>(
+    graphql`
+      query UserListQuery {
+        ...UserList_query
+      }
+    `,
+    { },
+    {
+      fetchPolicy: 'network-only',
+    },
+  );
 
-    return (
-      <Flex flexDirection='column'>
-        {users.edges.map(({node}) => (
-          <Card key={node.id}>
-            <span>User: {node.name}</span>
-            <span>Email: {node.name}</span>
-          </Card>
-        ))}
-      </Flex>
-    )
-  }
-}
-
-const UserListFragmentContainer = createFragmentContainer(UserList, {
-  query: graphql`
-    fragment UserList_query on Query {
-      users(first: 10) @connection(key: "UserList_users", filters: []) {
-        edges {
-          node {
-            id
-            name
-            email
+  const query = useFragment<Post_post$key>(
+    graphql`
+      fragment UserList_query on Query {
+        users(first: 10) @connection(key: "UserList_users", filters: []) {
+          edges {
+            node {
+              id
+              name
+              email
+            }
           }
         }
       }
-    }
-  `
-});
+    `,
+    response,
+  );
 
-export default createQueryRendererModern(UserListFragmentContainer, UserList, {
-  query: graphql`
-    query UserListQuery {
-      ...UserList_query
-    }
-  `,
-});
+  const { users } = query;
+
+  return (
+    <Flex flexDirection='column'>
+      {users.edges.map(({node}) => (
+        <Card key={node.id}>
+          <span>User: {node.name}</span>
+          <span>Email: {node.name}</span>
+        </Card>
+      ))}
+    </Flex>
+  )
+}
+
+export default UserList;

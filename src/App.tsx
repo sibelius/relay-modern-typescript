@@ -1,5 +1,19 @@
-import React from 'react';
-
+import React, { Suspense } from 'react';
+import { RelayEnvironmentProvider } from 'react-relay';
+import { Environment } from './relay';
 import UserList from './UserList';
+import ErrorBoundaryRetry from './ErrorBoundaryRetry';
 
-export default UserList;
+const App = () => {
+  return (
+    <RelayEnvironmentProvider environment={Environment}>
+      <ErrorBoundaryRetry>
+        <Suspense fallback={<span>Loading</span>}>
+          <UserList />
+        </Suspense>
+      </ErrorBoundaryRetry>
+    </RelayEnvironmentProvider>
+  )
+}
+
+export default App;

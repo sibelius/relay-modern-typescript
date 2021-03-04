@@ -15,7 +15,6 @@ module.exports = merge(webpackCommonConfig, {
   plugins: [
     new ReactRefreshPlugin(),
   ],
-  watch: true,
   devServer: {
     contentBase: outputPath,
     disableHostCheck: true,
@@ -26,6 +25,7 @@ module.exports = merge(webpackCommonConfig, {
     hotOnly: false,
     compress: true,
     open: true,
+    port: 8889,
   },
   // uncomment to have less warnings
   // stats: { warnings: false },
